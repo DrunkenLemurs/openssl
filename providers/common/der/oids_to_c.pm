@@ -82,7 +82,7 @@ sub _process {
         # print STDERR "-----BEGIN DEBUG-----\n";
         # print STDERR $text;
         # print STDERR "-----END DEBUG-----\n";
-        use re 'debugcolor';
+        use re; # Passing 'debugcolor' on Windows cause re to fail
         while ($text =~ m/${OID_def_re}/sg) {
             my $comment = $&;
             my $name = $1;

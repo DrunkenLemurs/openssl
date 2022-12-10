@@ -15,12 +15,18 @@ use Fcntl;
 # Perl script 'copy' comment. On Windows the built in "copy" command also
 # copies timestamps: this messes up Makefile dependencies.
 
+my $skipmissing = 0;
 my $stripcr = 0;
 
 my $arg;
 my @excludes = ();
 
 foreach $arg (@ARGV) {
+	if ($arg eq "-skipmissing")
+		{
+		$skipmissing = 1;
+		next;
+		}
 	if ($arg eq "-stripcr")
 		{
 		$stripcr = 1;
@@ -65,7 +71,7 @@ foreach (@filelist)
 		{
 		$dfile = $dest;
 		}
-	sysopen(IN, $_, O_RDONLY|O_BINARY) || die "Can't Open $_";
+	sysopen(IN, $_, O_RDONLY|O_BINARY) || do { next if ($skipmissing) || die "Can't Open $_"; };
 	sysopen(OUT, $dfile, O_WRONLY|O_CREAT|O_TRUNC|O_BINARY)
 					|| die "Can't Open $dfile";
 	while (sysread IN, $buf, 10240)

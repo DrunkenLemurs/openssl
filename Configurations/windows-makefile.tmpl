@@ -556,7 +556,7 @@ install_dev: install_runtime_libs
 	@"$(PERL)" "$(SRCDIR)\util\mkdir-p.pl" "$(libdir)"
 	@"$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_LIBS) "$(libdir)"
 	@if "$(SHLIBS)"=="" \
-	 "$(PERL)" "$(SRCDIR)\util\copy.pl" ossl_static.pdb "$(libdir)"
+	 "$(PERL)" "$(SRCDIR)\util\copy.pl" -skipmissing ossl_static.pdb "$(libdir)"
 
 uninstall_dev:
 
@@ -569,7 +569,7 @@ install_engines: _install_modules_deps
 	@if not "$(INSTALL_ENGINES)"=="" \
 	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_ENGINES) "$(ENGINESDIR)"
 	@if not "$(INSTALL_ENGINES)"=="" \
-	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_ENGINEPDBS) "$(ENGINESDIR)"
+	 "$(PERL)" "$(SRCDIR)\util\copy.pl" -skipmissing $(INSTALL_ENGINEPDBS) "$(ENGINESDIR)"
 
 uninstall_engines:
 
@@ -580,7 +580,7 @@ install_modules: _install_modules_deps
 	@if not "$(INSTALL_MODULES)"=="" \
 	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_MODULES) "$(MODULESDIR)"
 	@if not "$(INSTALL_MODULES)"=="" \
-	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_MODULEPDBS) "$(MODULESDIR)"
+	 "$(PERL)" "$(SRCDIR)\util\copy.pl" -skipmissing $(INSTALL_MODULEPDBS) "$(MODULESDIR)"
 
 uninstall_modules:
 
@@ -593,7 +593,7 @@ install_runtime_libs: build_libs
 	@if not "$(SHLIBS)"=="" \
 	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_SHLIBS) "$(INSTALLTOP)\bin"
 	@if not "$(SHLIBS)"=="" \
-	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_SHLIBPDBS) \
+	 "$(PERL)" "$(SRCDIR)\util\copy.pl" -skipmissing $(INSTALL_SHLIBPDBS) \
                                         "$(INSTALLTOP)\bin"
 
 install_programs: install_runtime_libs build_programs
@@ -605,7 +605,7 @@ install_programs: install_runtime_libs build_programs
 	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_PROGRAMS) \
                                         "$(INSTALLTOP)\bin"
 	@if not "$(INSTALL_PROGRAMS)"=="" \
-	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(INSTALL_PROGRAMPDBS) \
+	 "$(PERL)" "$(SRCDIR)\util\copy.pl" -skipmissing $(INSTALL_PROGRAMPDBS) \
                                         "$(INSTALLTOP)\bin"
 	@if not "$(INSTALL_PROGRAMS)"=="" \
 	 "$(PERL)" "$(SRCDIR)\util\copy.pl" $(BIN_SCRIPTS) \
